@@ -5,6 +5,11 @@
 
 package com.mycompany.fuel;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.InputMismatchException;
 import javax.swing.JOptionPane;
 
@@ -38,6 +43,15 @@ public class Fuel_Cost_Estimator extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         lbl_Output = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TextArea_Report = new javax.swing.JTextArea();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        Menu_File = new javax.swing.JMenu();
+        menuItemSave = new javax.swing.JMenuItem();
+        MenuItem_Exit = new javax.swing.JMenuItem();
+        Menu_View = new javax.swing.JMenu();
+        menuItemViewAll = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,22 +85,21 @@ public class Fuel_Cost_Estimator extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(108, Short.MAX_VALUE)
+                .addGap(165, 165, 165)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(ComboBox_FuelType, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(btn_calculatePrice)
+                            .addGap(56, 56, 56))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtField_Liters, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(btn_calculatePrice)
-                                .addGap(38, 38, 38)))
-                        .addGap(114, 114, 114))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(96, 96, 96))))
+                                .addComponent(ComboBox_FuelType, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtField_Liters, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,27 +130,85 @@ public class Fuel_Cost_Estimator extends javax.swing.JFrame {
         lbl_Output.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_Output.setText("R 00.00");
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(153, 0, 102));
+        jLabel5.setText("Report:");
+
+        TextArea_Report.setEditable(false);
+        TextArea_Report.setColumns(20);
+        TextArea_Report.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        TextArea_Report.setRows(5);
+        jScrollPane2.setViewportView(TextArea_Report);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(72, Short.MAX_VALUE)
-                .addComponent(lbl_Output, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_Output, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_Output, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 31, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(lbl_Output, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
+                .addContainerGap())
         );
+
+        Menu_File.setText("File");
+        Menu_File.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Menu_FileActionPerformed(evt);
+            }
+        });
+
+        menuItemSave.setText("Save Record");
+        menuItemSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemSaveActionPerformed(evt);
+            }
+        });
+        Menu_File.add(menuItemSave);
+
+        MenuItem_Exit.setText("Exit");
+        MenuItem_Exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItem_ExitActionPerformed(evt);
+            }
+        });
+        Menu_File.add(MenuItem_Exit);
+
+        jMenuBar1.add(Menu_File);
+
+        Menu_View.setText("View");
+
+        menuItemViewAll.setText("View All Records");
+        menuItemViewAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemViewAllActionPerformed(evt);
+            }
+        });
+        Menu_View.add(menuItemViewAll);
+
+        jMenuBar1.add(Menu_View);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -145,17 +216,17 @@ public class Fuel_Cost_Estimator extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -187,20 +258,112 @@ public class Fuel_Cost_Estimator extends javax.swing.JFrame {
 
             double total = liters * rate;
             lbl_Output.setText(String.format("Total Fuel Cost: R%.2f", total));
-        }
-        catch(NumberFormatException e)
-        {
-            JOptionPane.showMessageDialog(this, "Please enter a valid number!");
+            
+            TextArea_Report.setText("Selected Fuel Type: " + fuelType + "\n"
+                    + "Rate:" + rate + "\n"
+                    + "Liters Selected: " + liters + "\n"
+                    + "Total Price: " + total
+            );
         }
         catch(InputMismatchException e)
         {
             JOptionPane.showMessageDialog(this, "Only numbers should be entered!");
         }
-        catch (AssertionError e)
-        {
-            JOptionPane.showMessageDialog(this, e.getMessage()); 
-        }
     }//GEN-LAST:event_btn_calculatePriceActionPerformed
+
+    private void Menu_FileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Menu_FileActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Menu_FileActionPerformed
+
+    
+    //Action for when the "Save" Menu Item is clicked 
+    private void menuItemSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSaveActionPerformed
+        try
+        {
+            // 'true' means that the report of the next set should be added to the existing content of the file
+            FileWriter writer = new FileWriter("fuel_data.txt", true);
+            
+            String fuelType = ComboBox_FuelType.getSelectedItem().toString();
+            
+            double liters = Double.parseDouble(txtField_Liters.getText());
+            
+            double rate = 0;
+            
+            if(fuelType.equals("Petrol"))
+            {
+                rate = 22.50;
+            }
+            else if(fuelType.equals("Diesel"))
+            {
+                rate = 20.00;
+            }
+            else
+            {
+                rate = 18.00;
+            }
+
+            double total = liters * rate;
+            
+            lbl_Output.setText(String.format("Total Fuel Cost: R%.2f", total));
+            
+            writer.write("Selected Fuel Type: " + fuelType + "\n"
+                    + "Rate:" + rate + "\n"
+                    + "Liters Selected: " + liters + "\n"
+                    + "Total Price: " + total + "\n\n");
+            
+            // VERY IMPORTANT without the content is waiting to be written to the file 
+            writer.close();
+            JOptionPane.showMessageDialog(this, "Record saved successfully!");
+        }
+        catch(IOException e)
+        {
+            JOptionPane.showMessageDialog(this, "Error saving file: " + e.getMessage());
+        }
+        catch(InputMismatchException e)
+        {
+            JOptionPane.showMessageDialog(this, "Please enter a valid number!");
+        }
+    }//GEN-LAST:event_menuItemSaveActionPerformed
+
+    private void MenuItem_ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_ExitActionPerformed
+        int choice = JOptionPane.showConfirmDialog(
+        this, "Are you sure you want to exit?",
+                "Exit confirmation", 
+                JOptionPane.YES_NO_OPTION);
+        
+        if(choice == JOptionPane.YES_OPTION)
+        {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_MenuItem_ExitActionPerformed
+
+    private void menuItemViewAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemViewAllActionPerformed
+        try 
+        {
+            //opens the file named "fuel_data.txt and reads text line by line"
+            BufferedReader br = new BufferedReader(new FileReader("fuel_data.txt"));
+            
+            StringBuilder sb = new StringBuilder(); // builds all the text read from the file efficiently
+            String line = br.readLine(); //reads the first line of the text returns "null" if its empty
+
+            while (line != null) 
+            {
+                sb.append(line);
+                sb.append(System.lineSeparator()); //adds new line for proper formatting
+                line = br.readLine(); //reads the next line
+            }
+            //when exiting the while loop "sb" is holding all the text read from the file
+            TextArea_Report.setText(sb.toString());
+        }
+        catch (FileNotFoundException e)
+        {
+            JOptionPane.showMessageDialog(this, "No records found yet. Please save a record first.");
+        } 
+        catch (IOException e)
+        {
+            JOptionPane.showMessageDialog(this, "Error reading the file: " + e.getMessage());
+        }
+    }//GEN-LAST:event_menuItemViewAllActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -227,23 +390,33 @@ public class Fuel_Cost_Estimator extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        java.awt.EventQueue.invokeLater(new Runnable() 
+        {
             public void run() {
                 new Fuel_Cost_Estimator().setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ComboBox_FuelType;
+    private javax.swing.JMenuItem MenuItem_Exit;
+    private javax.swing.JMenu Menu_File;
+    private javax.swing.JMenu Menu_View;
+    private javax.swing.JTextArea TextArea_Report;
     private javax.swing.JButton btn_calculatePrice;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbl_Output;
+    private javax.swing.JMenuItem menuItemSave;
+    private javax.swing.JMenuItem menuItemViewAll;
     private javax.swing.JTextField txtField_Liters;
     // End of variables declaration//GEN-END:variables
 
