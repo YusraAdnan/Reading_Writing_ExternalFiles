@@ -307,6 +307,7 @@ public class Fuel_Cost_Estimator extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(this, "Only numbers should be entered!");
         }
+        //Excpetion for when an exception occure whilst writing to a file
         catch(IOException e)
         {
           JOptionPane.showMessageDialog(this, e.getMessage());
@@ -332,6 +333,7 @@ public class Fuel_Cost_Estimator extends javax.swing.JFrame {
           
           TextArea_Report.setText(sb.toString());
       }
+      //Handling an excpetion when you try to read from a file that does not exist
       catch(FileNotFoundException e)
       {
         JOptionPane.showMessageDialog(this, "No records found yet. Please save a record first!");
