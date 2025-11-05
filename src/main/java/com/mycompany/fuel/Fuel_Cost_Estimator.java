@@ -224,7 +224,9 @@ public class Fuel_Cost_Estimator extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Action prints the report on the text area only
     private void btn_calculatePriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_calculatePriceActionPerformed
+       
         try
         {
             String fuelType = ComboBox_FuelType.getSelectedItem().toString();
@@ -255,13 +257,14 @@ public class Fuel_Cost_Estimator extends javax.swing.JFrame {
                     + "Total Price: " + total
             );
         }
+        //Exception handling for if a text is added to where a number needs to be inputed
         catch(InputMismatchException e)
         {
             JOptionPane.showMessageDialog(this, "Only numbers should be entered!");
         }
     }//GEN-LAST:event_btn_calculatePriceActionPerformed
 
-    //Action for when the 'Save Record' Menu Item is clicked
+    //Action for when the 'Save Record' Menu Item is clicked (we want the record to be written to an external file)
     private void MenuItem_SaveRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_SaveRecordActionPerformed
         try
         {
@@ -310,10 +313,11 @@ public class Fuel_Cost_Estimator extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_MenuItem_SaveRecordActionPerformed
 
+    //Action the reads information from the file you had created above and shows it in the text area
     private void MenuItemViewAllRecordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemViewAllRecordsActionPerformed
       try
       {
-          BufferedReader br = new BufferedReader(new FileReader("fuel_data.txt"));
+          BufferedReader br = new BufferedReader(new FileReader("fuel_data.txt"));//Ensure this name is the same as the name that you had created above for the file
           
           //builds all the text read from the text file efficiently
           StringBuilder sb = new StringBuilder();
