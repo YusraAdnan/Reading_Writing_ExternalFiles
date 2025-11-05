@@ -265,14 +265,17 @@ public class Fuel_Cost_Estimator extends javax.swing.JFrame {
     private void MenuItem_SaveRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_SaveRecordActionPerformed
         try
         {
+            //Open a file writer (the true ensures that every record is written on the next line not replaced on the previous record)
             FileWriter writer = new FileWriter("fuel_data.txt", true);
             
+            //Get the selected combo box item and store it in variable
             String fuelType = ComboBox_FuelType.getSelectedItem().toString();
             
             double liters = Double.parseDouble(txtField_Liters.getText());
             
             double rate = 0;
             
+            //based on which fuel type is selected we set the rate
             if(fuelType.equals("Petrol"))
             {
                 rate = 22.50;
