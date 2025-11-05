@@ -46,12 +46,12 @@ public class Fuel_Cost_Estimator extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         TextArea_Report = new javax.swing.JTextArea();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        Menu_File = new javax.swing.JMenu();
-        menuItemSave = new javax.swing.JMenuItem();
-        MenuItem_Exit = new javax.swing.JMenuItem();
-        Menu_View = new javax.swing.JMenu();
-        menuItemViewAll = new javax.swing.JMenuItem();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu3 = new javax.swing.JMenu();
+        MenuItem_SaveRecord = new javax.swing.JMenuItem();
+        MenuItemExit = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        MenuItemViewAllRecords = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -171,44 +171,34 @@ public class Fuel_Cost_Estimator extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        Menu_File.setText("File");
-        Menu_File.addActionListener(new java.awt.event.ActionListener() {
+        jMenu3.setText("File");
+
+        MenuItem_SaveRecord.setText("Save Record");
+        MenuItem_SaveRecord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Menu_FileActionPerformed(evt);
+                MenuItem_SaveRecordActionPerformed(evt);
             }
         });
+        jMenu3.add(MenuItem_SaveRecord);
 
-        menuItemSave.setText("Save Record");
-        menuItemSave.addActionListener(new java.awt.event.ActionListener() {
+        MenuItemExit.setText("Exit");
+        jMenu3.add(MenuItemExit);
+
+        jMenuBar2.add(jMenu3);
+
+        jMenu4.setText("View");
+
+        MenuItemViewAllRecords.setText("View All Records");
+        MenuItemViewAllRecords.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemSaveActionPerformed(evt);
+                MenuItemViewAllRecordsActionPerformed(evt);
             }
         });
-        Menu_File.add(menuItemSave);
+        jMenu4.add(MenuItemViewAllRecords);
 
-        MenuItem_Exit.setText("Exit");
-        MenuItem_Exit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuItem_ExitActionPerformed(evt);
-            }
-        });
-        Menu_File.add(MenuItem_Exit);
+        jMenuBar2.add(jMenu4);
 
-        jMenuBar1.add(Menu_File);
-
-        Menu_View.setText("View");
-
-        menuItemViewAll.setText("View All Records");
-        menuItemViewAll.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemViewAllActionPerformed(evt);
-            }
-        });
-        Menu_View.add(menuItemViewAll);
-
-        jMenuBar1.add(Menu_View);
-
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(jMenuBar2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -271,16 +261,10 @@ public class Fuel_Cost_Estimator extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_calculatePriceActionPerformed
 
-    private void Menu_FileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Menu_FileActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Menu_FileActionPerformed
-
-    
-    //Action for when the "Save" Menu Item is clicked 
-    private void menuItemSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSaveActionPerformed
+    //Action for when the 'Save Record' Menu Item is clicked
+    private void MenuItem_SaveRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_SaveRecordActionPerformed
         try
         {
-            // 'true' means that the report of the next set should be added to the existing content of the file
             FileWriter writer = new FileWriter("fuel_data.txt", true);
             
             String fuelType = ComboBox_FuelType.getSelectedItem().toString();
@@ -301,70 +285,57 @@ public class Fuel_Cost_Estimator extends javax.swing.JFrame {
             {
                 rate = 18.00;
             }
-
+            
             double total = liters * rate;
-            
-            lbl_Output.setText(String.format("Total Fuel Cost: R%.2f", total));
-            
             writer.write("Selected Fuel Type: " + fuelType + "\n"
-                    + "Rate:" + rate + "\n"
-                    + "Liters Selected: " + liters + "\n"
+                    + "Liters Entered: " + liters + "\n"
+                    + "Rate: " + rate + "\n"
                     + "Total Price: " + total + "\n\n");
             
-            // VERY IMPORTANT without the content is waiting to be written to the file 
+            // VERY IMPORTANT without this the content is left waiting to be written to the file
             writer.close();
-            JOptionPane.showMessageDialog(this, "Record saved successfully!");
-        }
-        catch(IOException e)
-        {
-            JOptionPane.showMessageDialog(this, "Error saving file: " + e.getMessage());
+            
+            JOptionPane.showMessageDialog(this, "Record Saved Successfully!");
         }
         catch(InputMismatchException e)
         {
-            JOptionPane.showMessageDialog(this, "Please enter a valid number!");
+            JOptionPane.showMessageDialog(this, "Only numbers should be entered!");
         }
-    }//GEN-LAST:event_menuItemSaveActionPerformed
-
-    private void MenuItem_ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_ExitActionPerformed
-        int choice = JOptionPane.showConfirmDialog(
-        this, "Are you sure you want to exit?",
-                "Exit confirmation", 
-                JOptionPane.YES_NO_OPTION);
-        
-        if(choice == JOptionPane.YES_OPTION)
+        catch(IOException e)
         {
-            System.exit(0);
+          JOptionPane.showMessageDialog(this, e.getMessage());
         }
-    }//GEN-LAST:event_MenuItem_ExitActionPerformed
+    }//GEN-LAST:event_MenuItem_SaveRecordActionPerformed
 
-    private void menuItemViewAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemViewAllActionPerformed
-        try 
-        {
-            //opens the file named "fuel_data.txt and reads text line by line"
-            BufferedReader br = new BufferedReader(new FileReader("fuel_data.txt"));
-            
-            StringBuilder sb = new StringBuilder(); // builds all the text read from the file efficiently
-            String line = br.readLine(); //reads the first line of the text returns "null" if its empty
+    private void MenuItemViewAllRecordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemViewAllRecordsActionPerformed
+      try
+      {
+          BufferedReader br = new BufferedReader(new FileReader("fuel_data.txt"));
+          
+          //builds all the text read from the text file efficiently
+          StringBuilder sb = new StringBuilder();
+          
+          String line = br.readLine();//Reads the first line in the text file
+          while(line != null)
+          {
+              sb.append(line); 
+              sb.append(System.lineSeparator()); //adds new line for proper formatting
+              line = br.readLine();// reads the next line
+          }
+          
+          TextArea_Report.setText(sb.toString());
+      }
+      catch(FileNotFoundException e)
+      {
+        JOptionPane.showMessageDialog(this, "No records found yet. Please save a record first!");
+      }
+      catch(IOException e)
+      {
+        JOptionPane.showMessageDialog(this, "Error reading from file" + e.getMessage());
+      }
+    }//GEN-LAST:event_MenuItemViewAllRecordsActionPerformed
 
-            while (line != null) 
-            {
-                sb.append(line);
-                sb.append(System.lineSeparator()); //adds new line for proper formatting
-                line = br.readLine(); //reads the next line
-            }
-            //when exiting the while loop "sb" is holding all the text read from the file
-            TextArea_Report.setText(sb.toString());
-        }
-        catch (FileNotFoundException e)
-        {
-            JOptionPane.showMessageDialog(this, "No records found yet. Please save a record first.");
-        } 
-        catch (IOException e)
-        {
-            JOptionPane.showMessageDialog(this, "Error reading the file: " + e.getMessage());
-        }
-    }//GEN-LAST:event_menuItemViewAllActionPerformed
-
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -399,9 +370,9 @@ public class Fuel_Cost_Estimator extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ComboBox_FuelType;
-    private javax.swing.JMenuItem MenuItem_Exit;
-    private javax.swing.JMenu Menu_File;
-    private javax.swing.JMenu Menu_View;
+    private javax.swing.JMenuItem MenuItemExit;
+    private javax.swing.JMenuItem MenuItemViewAllRecords;
+    private javax.swing.JMenuItem MenuItem_SaveRecord;
     private javax.swing.JTextArea TextArea_Report;
     private javax.swing.JButton btn_calculatePrice;
     private javax.swing.JLabel jLabel1;
@@ -409,14 +380,13 @@ public class Fuel_Cost_Estimator extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbl_Output;
-    private javax.swing.JMenuItem menuItemSave;
-    private javax.swing.JMenuItem menuItemViewAll;
     private javax.swing.JTextField txtField_Liters;
     // End of variables declaration//GEN-END:variables
 

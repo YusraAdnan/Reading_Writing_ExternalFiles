@@ -1,0 +1,15 @@
+Selected Fuel Type: Petrol
+Liters Entered: 12.0
+Rate: 22.5
+Total Price: 270.0
+
+Selected Fuel Type: Hybrid
+Liters Entered: 23.0
+Rate: 18.0
+Total Price: 414.0
+
+Selected Fuel Type: Diesel
+Liters Entered: 100.0
+Rate: 20.0
+Total Price: 2000.0
+
